@@ -1,0 +1,23 @@
+{
+  "name": "image-scale",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "baboon-image": "^2.0.0",
+    "ndarray-warp": "^1.0.1",
+    "npm-bump": "0.0.20"
+  },
+  "dependencies": {
+    "ndarray-scratch": "^1.2.0",
+    "ndarray-warp": "^1.0.1"
+  }
+}
