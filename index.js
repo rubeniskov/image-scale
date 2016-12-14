@@ -5,18 +5,12 @@ var pool = require('ndarray-scratch'),
 
 module.exports = ndarrayScale
 
-function ndarrayScale() {
-    var i, input, output, scale
+function ndarrayScale(input, scale) {
+    var i, output;
 
-    if (arguments.length === 2) {
-        // With allocation (output not specified):
-        input = arguments[0]
-        scale = arguments[1]
-    } else if (arguments.length === 3) {
-        // Without allocation (output specified):
-        output = arguments[0]
-        input = arguments[1]
-        scale = arguments[2]
+    if (scale && scale.shape) {
+        output = scale;
+        scale = [output.shape[0] / input.shape[0], output.shape[1] / input.shape[1]];
     }
 
     if (!Array.isArray(scale)) {
@@ -47,10 +41,10 @@ function ndarrayScale() {
         output = pool.zeros(newShape, input.dtype);
     }
     wrap(output, input, function(out, inp) {
-          out[0] = inp[0] / (output.shape[0] / input.shape[0]);
-          out[1] = inp[1] / (output.shape[1] / input.shape[1]);
-          out[2] = inp[2];
-        });
+        out[0] = inp[0] / scale[0];
+        out[1] = inp[1] / scale[1];
+        out[2] = inp[2];
+    });
 
     return output;
 }
